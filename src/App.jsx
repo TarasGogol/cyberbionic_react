@@ -1,10 +1,12 @@
 // import logo from './logo.svg';
 import React, {Component} from 'react';
 import './App.scss';
-import Text from "./components/Text/Text";
+import List from "./components/Text/List";
 import Counter from "./components/Counter/Counter";
 import ColorText from "./components/ColorText/ColorText";
 import Header from "./components/Header/Header";
+import {connect} from "react-redux";
+import {decActionCreator, incActionCreator} from "./components/ReduxCounter/counterAction";
 
 // import logo from "assets/img/margarita.jpg"
 const logo = require(`./assets/img/blood_type_coffee.svg`).default;
@@ -32,11 +34,16 @@ class App extends Component {
   }
 
   render() {
+      const {dispatch} = this.props
 
     return (
       <div className="App">
 
         <Header text={"This is Header"} params={this.state.header} sizeHandler={(e,size)=>this.sizeHandler(e,size)} />
+
+          <button onClick={()=>dispatch(incActionCreator())}>+</button>
+          <button onClick={()=>dispatch(decActionCreator())}>-</button>
+          <button>RANDOM</button>
         {/*<button onClick={()=>this.sizeHandler()} > size up </button>*/}
 
         {/*<button onClick={()=>this.setState({color:"grey"})}>grey </button>*/}
@@ -55,8 +62,8 @@ class App extends Component {
 
         <button onClick={()=>this.setState({showCounter:!this.state.showCounter})}>click</button>
 
-        <Text text={"Доброе Утро!!!"} count={33} arr={this.state.arr}/>
-        {/*<Text text="Мы з Украины!!!" tanya="Киев"/>*/}
+        <List text={"Доброе Утро!!!"} count={33} arr={this.state.arr}/>
+        {/*<List text="Мы з Украины!!!" tanya="Киев"/>*/}
 
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
@@ -77,7 +84,7 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect()(App);
 
 
 

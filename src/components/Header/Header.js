@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import ColorText from "../ColorText/ColorText";
+import {connect} from "react-redux";
+import ReduxCounter from "../ReduxCounter/ReduxCounter";
 
 class Header extends Component {
 
@@ -12,16 +14,23 @@ class Header extends Component {
   }
 
   render() {
-    const {text,params,sizeHandler} = this.props;
+    const {params,sizeHandler, title} = this.props;
 
-    // console.log(params)
+    console.log(title)
 
     return (
       <div>
-        <ColorText sizeHandler={sizeHandler} params={params} text={text} colorArr={["fuchsia","grey","orange","purple","aquamarine"]} />
+        <ReduxCounter/>
+        <ColorText sizeHandler={sizeHandler} params={params} text={title} colorArr={["fuchsia","grey","orange","purple","aquamarine"]} />
       </div>
     );
   }
 }
 
-export default Header;
+const mapStateToProps = (state) =>{
+  return{
+    title: state.title
+  }
+}
+
+export default connect(mapStateToProps)(Header);
